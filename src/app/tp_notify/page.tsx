@@ -43,20 +43,31 @@ export default function TaipeiBusBinding() {
 
   return (
     <div className="max-w-lg mx-auto mt-10 p-6 bg-white border rounded-lg shadow-lg">
-      <h1 className="text-2xl font-bold mb-4 text-center text-orange-500">
-        台北客運通知綁定
+      <h1 className="text-2xl font-bold mb-4  text-center text-orange-500">
+        臺北客運通知綁定
       </h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         {/* 公司名稱 */}
-        <div>
-          <label className="block font-semibold mb-2">公司名稱</label>
-          <input
-            type="text"
-            value="台北客運"
-            disabled
-            className="w-full p-2 border rounded bg-gray-100"
-          />
+        <div className="relative">
+          <label className="block font-semibold mb-2">
+            公司名稱 <span className="text-red-500">*</span>
+          </label>
+          <select
+            {...register("department")}
+            className="w-full p-2 border rounded bg-white appearance-none pr-8"
+          >
+            <option value="">請選擇公司</option>
+            <option value="2007028490">臺北客運</option>
+            <option value="200702841">首都客運</option>
+          </select>
+          {/* 模擬下拉箭頭 */}
+          <div className="absolute right-2 top-10 pointer-events-none">▼</div>
+          {errors.department && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.department.message}
+            </p>
+          )}
         </div>
 
         {/* 部門 (必填) */}
@@ -144,6 +155,10 @@ export default function TaipeiBusBinding() {
         >
           送出表單
         </button>
+        {/* 表單下方的 channel id */}
+        <h6 id="channel-id" className="text-sm bg-gray-200 p-2 mt-4">
+          channelId : 20089333
+        </h6>
       </form>
     </div>
   );
