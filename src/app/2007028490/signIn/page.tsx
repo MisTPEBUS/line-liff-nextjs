@@ -4,9 +4,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-// 更新表單 schema，加入公司欄位
+// ✅ 定義表單 schema
 const formSchema = z.object({
-  company: z.string().min(1, { message: "請選擇公司" }),
   department: z.enum(
     [
       "D64業務部",
@@ -25,7 +24,7 @@ const formSchema = z.object({
   name: z.string().optional(),
 });
 
-// 定義表單類型
+// ✅ 定義表單類型
 type FormData = z.infer<typeof formSchema>;
 
 export default function TaipeiBusBinding() {
@@ -44,7 +43,7 @@ export default function TaipeiBusBinding() {
 
   return (
     <div className="max-w-lg mx-auto mt-10 p-6 bg-white border rounded-lg shadow-lg">
-      <h1 className="text-2xl font-bold mb-4 text-center text-orange-500">
+      <h1 className="text-2xl font-bold mb-4  text-center text-orange-500">
         臺北客運通知綁定
       </h1>
 
@@ -55,7 +54,7 @@ export default function TaipeiBusBinding() {
             公司名稱 <span className="text-red-500">*</span>
           </label>
           <select
-            {...register("company")}
+            {...register("department")}
             className="w-full p-2 border rounded bg-white appearance-none pr-8"
           >
             <option value="">請選擇公司</option>
@@ -63,22 +62,15 @@ export default function TaipeiBusBinding() {
             <option value="200702841">首都客運</option>
           </select>
           {/* 模擬下拉箭頭 */}
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-            <svg
-              className="h-4 w-4 fill-current text-gray-500"
-              viewBox="0 0 20 20"
-            >
-              <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-            </svg>
-          </div>
-          {errors.company && (
+          <div className="absolute right-2 top-10 pointer-events-none">▼</div>
+          {errors.department && (
             <p className="text-red-500 text-sm mt-1">
-              {errors.company.message}
+              {errors.department.message}
             </p>
           )}
         </div>
 
-        {/* 部門 */}
+        {/* 部門 (必填) */}
         <div className="relative">
           <label className="block font-semibold mb-2">
             部門 <span className="text-red-500">*</span>
@@ -97,14 +89,7 @@ export default function TaipeiBusBinding() {
             <option value="T05木柵站">T05木柵站</option>
           </select>
           {/* 模擬下拉箭頭 */}
-          <div className="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
-            <svg
-              className="h-4 w-4 fill-current text-gray-500"
-              viewBox="0 0 20 20"
-            >
-              <path d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-            </svg>
-          </div>
+          <div className="absolute right-2 top-10 pointer-events-none">▼</div>
           {errors.department && (
             <p className="text-red-500 text-sm mt-1">
               {errors.department.message}
@@ -113,21 +98,37 @@ export default function TaipeiBusBinding() {
         </div>
 
         {/* 職稱 */}
-        <div>
+        <div className="relative">
           <label className="block font-semibold mb-2">職稱</label>
-          <input
-            type="text"
-            {...register("position")}
-            className="w-full p-2 border rounded"
-            placeholder="例如：公車司機、地鐵維修工程師"
-          />
+          <select
+            {...register("department")}
+            className="w-full p-2 border rounded bg-white appearance-none pr-8"
+          >
+            <option value="">請選擇職稱</option>
+            <option value="協理">協理</option>
+            <option value="經理">經理</option>
+            <option value="科長">科長</option>
+            <option value="副理">副理</option>
+            <option value="襄理">襄理</option>
+            <option value="課長">課長</option>
+            <option value="主任">主任</option>
+            <option value="股長">股長</option>
+            <option value="場站主管">場站主管</option>
+            <option value="場站職員">場站職員</option>
+            <option value="內勤職員">內勤職員</option>
+          </select>
+          {/* 模擬下拉箭頭 */}
+          <div className="absolute right-2 top-10 pointer-events-none">▼</div>
+          {errors.department && (
+            <p className="text-red-500 text-sm mt-1">
+              {errors.department.message}
+            </p>
+          )}
         </div>
 
         {/* 專案群組 (標題變成橘色) */}
         <div>
-          <label className="block font-semibold mb-2 text-red-500">
-            專案群組
-          </label>
+          <label className="block font-semibold mb-2 ">專案群組</label>
           <input
             type="text"
             {...register("projectGroup")}
@@ -136,7 +137,7 @@ export default function TaipeiBusBinding() {
           />
         </div>
 
-        {/* 員工編號 */}
+        {/* 員工編號 (必填) */}
         <div>
           <label className="block font-semibold mb-2">
             員工編號 <span className="text-red-500">*</span>
@@ -172,7 +173,6 @@ export default function TaipeiBusBinding() {
         >
           送出表單
         </button>
-
         {/* 表單下方的 channel id */}
         <h6 id="channel-id" className="text-sm bg-gray-200 p-2 mt-4">
           channelId : 20089333
