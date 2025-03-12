@@ -5,18 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 export default function NotificationBindingPage() {
-  const [isBound, setIsBound] = useState(true);
-
-  const handleUnbind = () => {
-    // 在這裡處理解除綁定邏輯，例如呼叫 API
-    setIsBound(false);
-    alert("已解除綁定");
-  };
-
-  const handleKeepBound = () => {
-    alert("保持綁定");
-  };
-
   return (
     <div className="max-w-lg mx-auto mt-10 p-6 bg-white border rounded-lg shadow-lg">
       <h1 className="text-2xl font-bold mb-4 text-center text-orange-500">
@@ -40,16 +28,10 @@ export default function NotificationBindingPage() {
           </ul>
         </CardContent>
         <div className="mt-6 flex flex-col space-y-2">
-          <Button
-            className="w-full bg-green-500 text-white py-2 rounded font-extrabold hover:bg-green-600"
-            onClick={handleUnbind}
-          >
+          <Button className="w-full bg-green-500 text-white py-2 rounded font-extrabold hover:bg-green-600">
             是，解除綁定
           </Button>
-          <Button
-            className="w-full bg-gray-300 hover:bg-gray-400 py-2 rounded font-bold"
-            onClick={handleKeepBound}
-          >
+          <Button className="w-full bg-gray-300 hover:bg-gray-400 py-2 rounded font-bold">
             否，保持綁定
           </Button>
         </div>
