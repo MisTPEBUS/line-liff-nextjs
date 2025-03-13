@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { initLiff, getLiffUserId } from "../utils/liff";
 
-const LIFF_ID = "你的_LIFF_ID"; // 記得替換成你的 LIFF ID
+const LIFF_ID = "2007049862-Le590xkP"; // 記得替換成你的 LIFF ID
 
 export default function Home() {
   const [userId, setUserId] = useState<string | null>(null);
