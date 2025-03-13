@@ -11,6 +11,7 @@ export default function Home() {
     async function fetchUserId() {
       await initLiff(LIFF_ID);
       const id = await getLiffUserId();
+
       setUserId(id);
     }
 

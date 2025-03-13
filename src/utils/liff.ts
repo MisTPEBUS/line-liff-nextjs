@@ -18,7 +18,9 @@ export async function getLiffUserId() {
       console.warn("使用者尚未登入");
       return null;
     }
+    alert(liff.getProfile());
     const profile = await liff.getProfile();
+    alert(profile.userId);
     return profile.userId;
   } catch (error) {
     console.error("取得 userId 失敗", error);
