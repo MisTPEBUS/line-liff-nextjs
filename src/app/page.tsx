@@ -1,6 +1,6 @@
 "use client";
+import { getLiffUserId, initLiff } from "@/utils/liff";
 import { useEffect, useState } from "react";
-import { initLiff, getLiffUserId } from "../utils/liff";
 
 const LIFF_ID = "2007049862-Le590xkP"; // 記得替換成你的 LIFF ID
 

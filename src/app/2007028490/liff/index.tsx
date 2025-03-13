@@ -1,34 +1,27 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { getLiffUserId, initLiff } from "@/utils/liff";
+import liff from "@line/liff";
 
-const LIFF_ID = "2007049862-Le590xkP"; // 記得替換
+export async function initLiff(liffId: string) {
+  try {
+    await liff.init({ liffId });
+    console.log("LIFF 初始化成功", liff.isLoggedIn());
 
-export default function Home() {
-  const [userId, setUserId] = useState<string | null>(null);
-  const router = useRouter();
+    if (!liff.isLoggedIn()) {
+      liff.login();
+    }
+  } catch (error) {
+    console.error("LIFF 初始化失敗", error);
+  }
+}
 
-  useEffect(() => {
-    const initialize = async () => {
-      await initLiff(LIFF_ID); // ✅ 傳入 LIFF_ID
-      const id = await getLiffUserId();
-      if (id) {
-        setUserId(id);
-        router.push("/liff/profile"); // 成功登入後跳轉 Profile 頁面
-      }
-    };
-
-    initialize();
-  }, []);
-
-  return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold">取得 LIFF User ID</h1>
-      {userId ? (
-        <p className="mt-4 text-lg">你的 User ID：{userId}</p>
-      ) : (
-        <p>載入中...</p>
-      )}
-    </div>
-  );
+export async function getProfile() {
+  try {
+    if (!liff.isLoggedIn()) {
+      console.warn("使用者尚未登入");
+      return null;
+    }
+    return await liff.getProfile();
+  } catch (error) {
+    console.error("取得使用者資訊失敗", error);
+    return null;
+  }
 }
