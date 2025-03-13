@@ -1,16 +1,28 @@
 "use client"; // 必須加上這行，讓 Next.js 知道這是 Client Component
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation"; // ✅ 改成 next/navigation
 import { initLiff } from "@/utils/liff"; // 請確認路徑正確
 
 const LiffAuthPage = () => {
   const router = useRouter();
+  const [profile, setProfile] = useState<any>(null);
 
   useEffect(() => {
     const initialize = async () => {
-      await initLiff();
-      router.push("/liff/profile"); // 成功登入後跳轉
+      try {
+        await initLiff();
+        if (!window.liff.isLoggedIn()) {
+          window.liff.login();
+          return;
+        }
+        const profileData = await window.liff.getProfile();
+        console.log("取得的 profile 資料：", profileData);
+        setProfile(profileData);
+        // router.push("/liff/profile");
+      } catch (error) {
+        console.error("LIFF 初始化或取得 profile 失敗：", error);
+      }
     };
 
     initialize();
