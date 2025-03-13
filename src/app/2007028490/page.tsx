@@ -29,7 +29,9 @@ export default function Home() {
       if (window.liff.isLoggedIn()) {
         const profile = await window.liff.getProfile();
         setUserId(profile.userId);
+        alert(2);
       } else {
+        alert(1);
         // 若尚未登入，則導向 LIFF 登入（根據需求可啟用）
         window.liff.login();
       }

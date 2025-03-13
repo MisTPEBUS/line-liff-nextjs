@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 
 // ✅ 定義表單 schema
 const formSchema = z.object({
@@ -27,7 +28,7 @@ const formSchema = z.object({
 // ✅ 定義表單類型
 type FormData = z.infer<typeof formSchema>;
 
-export default function TaipeiBusBinding() {
+const TaipeiBusBinding = () => {
   const {
     register,
     handleSubmit,
@@ -35,7 +36,9 @@ export default function TaipeiBusBinding() {
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
-
+  const [state, getstate] = useState;
+  const profile = window.liff.getProfile();
+  console.log(profile);
   const onSubmit = (data: FormData) => {
     console.log("📢 表單提交:", data);
     alert("綁定成功！");
@@ -180,4 +183,6 @@ export default function TaipeiBusBinding() {
       </form>
     </div>
   );
-}
+};
+
+export default TaipeiBusBinding;
