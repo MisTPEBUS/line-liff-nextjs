@@ -15,6 +15,7 @@ const MyComponent = () => {
         .init({ liffId: "2007049862-Le590xkP" })
         .then(() => {
           setIsInitialized(true);
+          console.log(isInitialized);
           // 初始化成功後取得 profile 資訊
           liff
             .getProfile()
