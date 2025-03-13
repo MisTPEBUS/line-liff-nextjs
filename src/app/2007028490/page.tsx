@@ -2,19 +2,25 @@
 import { useEffect, useState } from "react";
 import liff from "@line/liff";
 
+export type userProfile = {
+  userId: string;
+  displayName: string;
+};
 const MyComponent = () => {
-  const [userId, setUserId] = useState<string>("");
+  const [user, setUser] = useState<userProfile>();
 
   useEffect(() => {
     if (typeof window !== "undefined") {
+      const liffID = process.env.NEXT_PUBLIC_LIFF_ID_TP;
+
       liff
-        .init({ liffId: process.env.NEXT_PUBLIC_LIFF_ID_TP || "你的LIFF_ID" })
+        .init({ liffId: liffID?.trim() || "你的LIFF_ID" })
         .then(() => {
           // 初始化成功後取得 profile 資訊
           liff
             .getProfile()
             .then((profile) => {
-              setUserId(profile.userId);
+              setUser(profile);
               console.log("User ID:", profile.userId);
             })
             .catch((err) => {
@@ -30,7 +36,13 @@ const MyComponent = () => {
   return (
     <div>
       <h1>LIFF App</h1>
-      {userId ? <p>Your user ID: {userId}</p> : <p>正在載入使用者資料...</p>}
+      {user ? (
+        <p>
+          Your user ID: {user.userId} {user.displayName}
+        </p>
+      ) : (
+        <p>正在載入使用者資料...</p>
+      )}
     </div>
   );
 };
