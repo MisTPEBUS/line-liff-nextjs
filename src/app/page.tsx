@@ -9,7 +9,7 @@ export default function Home() {
 
   useEffect(() => {
     async function fetchUserId() {
-      await initLiff(LIFF_ID);
+      await initLiff();
       const id = await getLiffUserId();
 
       setUserId(id);

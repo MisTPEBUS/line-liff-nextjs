@@ -1,8 +1,8 @@
 import liff from "@line/liff";
 
-export async function initLiff(liffId: string) {
+export async function initLiff() {
   try {
-    await liff.init({ liffId });
+    await liff.init({ liffId: "2007049862-Le590xkP" });
     console.log("LIFF 初始化成功", liff.isLoggedIn());
 
     if (!liff.isLoggedIn()) {
