@@ -3,11 +3,8 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import axios from "axios";
-import { useRouter } from "next/navigation";
-import liff from "@line/liff";
-const NotificationBindingPage = (data: any) => {
-  const router = useRouter();
 
+const NotificationBindingPage = () => {
   // 點選「是，解除綁定」按鈕時呼叫此函式
   const handleUnbind = async () => {
     try {
