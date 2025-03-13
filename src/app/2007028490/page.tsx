@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 import liff from "@line/liff";
 
@@ -7,7 +8,7 @@ const MyComponent = () => {
   useEffect(() => {
     if (typeof window !== "undefined") {
       liff
-        .init({ liffId: process.env.NEXT_PUBLIC_LIFF_ID || "你的LIFF_ID" })
+        .init({ liffId: process.env.NEXT_PUBLIC_LIFF_ID_TP || "你的LIFF_ID" })
         .then(() => {
           // 初始化成功後取得 profile 資訊
           liff
