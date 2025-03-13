@@ -11,10 +11,10 @@ const MyComponent = () => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const liffID = process.env.NEXT_PUBLIC_LIFF_ID_TP;
+      const liffID = "2007049862-Le590xkP".trim();
 
       liff
-        .init({ liffId: liffID?.trim() || "你的LIFF_ID" })
+        .init({ liffId: liffID })
         .then(() => {
           // 初始化成功後取得 profile 資訊
           liff
