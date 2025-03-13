@@ -5,6 +5,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { getProfile } from "@/utils/liff";
+import liff from "@line/liff";
 
 // ✅ 定義表單 schema
 const formSchema = z.object({
@@ -41,10 +42,12 @@ export default function TaipeiBusBinding() {
 
   useEffect(() => {
     async function fetchUserId() {
-      const profile = await getProfile();
+      const profile = await liff.getProfile();
       if (profile) {
         setUserId(profile.userId);
       }
+
+      alert(profile.userId);
     }
     fetchUserId();
   }, []);
