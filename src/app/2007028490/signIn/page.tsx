@@ -3,6 +3,8 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, useState } from "react";
+import { getProfile } from "@/utils/liff";
 
 // ✅ 定義表單 schema
 const formSchema = z.object({
@@ -35,7 +37,17 @@ export default function TaipeiBusBinding() {
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
-  //const profile = window.liff.getProfile();
+  const [userId, setUserId] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchUserId() {
+      const profile = await getProfile();
+      if (profile) {
+        setUserId(profile.userId);
+      }
+    }
+    fetchUserId();
+  }, []);
 
   const onSubmit = (data: FormData) => {
     console.log("📢 表單提交:", data);
@@ -176,7 +188,7 @@ export default function TaipeiBusBinding() {
         </button>
         {/* 表單下方的 channel id */}
         <h6 id="channel-id" className="text-sm bg-gray-200 p-2 mt-4">
-          channelId : 20089333
+          channelId : 20089333-user:id{userId}
         </h6>
       </form>
     </div>
