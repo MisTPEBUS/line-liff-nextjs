@@ -8,20 +8,19 @@ export type userProfile = {
 };
 const MyComponent = () => {
   const [user, setUser] = useState<userProfile>();
-
+  const [isInitialized, setIsInitialized] = useState(false);
   useEffect(() => {
     if (typeof window !== "undefined") {
-      const liffID = "2007049862-Le590xkP".trim();
-
       liff
-        .init({ liffId: liffID })
+        .init({ liffId: "2007049862-Le590xkP" })
         .then(() => {
+          setIsInitialized(true);
           // 初始化成功後取得 profile 資訊
           liff
             .getProfile()
             .then((profile) => {
               setUser(profile);
-              console.log("User ID:", profile.userId);
+              console.log("User ID:", profile);
             })
             .catch((err) => {
               console.error("取得 profile 失敗:", err);
